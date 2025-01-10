@@ -66,12 +66,17 @@ int main() {
 
                 int newX = playerX;
                 int newY = playerY;
+
                 if (direction == 1) newX--;
                 else if (direction == 2) newY--;
                 else if (direction == 3) newX++;
                 else if (direction == 4) newY++;
 
-                if (maze[newX][newY] == 0) {
+                if (newX < 0 || newX >= 5 || newY < 0 || newY >= 7) {
+                    continue;
+                }
+
+                if (maze[newX][newY] == 0 || maze[newX][newY] == 2) {
                     maze[playerX][playerY] = 0;
                     maze[newX][newY] = 2;
                     playerX = newX;
@@ -80,12 +85,10 @@ int main() {
                     system("cls");
                     printMaze(maze, 5, 7);
                 }
-                else {
-                    cout << "Невозможно двигаться в выбранном направлении!" << endl;
-                }
             }
         }
         else {
+            system("cls");
             cout << "Неверная команда, попробуйте снова." << endl;
         }
     }
