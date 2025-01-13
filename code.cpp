@@ -15,12 +15,12 @@ int main() {
     setlocale(LC_ALL, "");
     int maze[5][7] = {
         {1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 3, 0, 0, 1},
+        {1, 0, 1, 1, 1, 0, 1},
         {1, 0, 0, 2, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1}
     };
-    int playerX = 2;
+    int playerX = 3;
     int playerY = 3;
 
     while (true) {
@@ -44,9 +44,11 @@ int main() {
             printMaze(maze, 5, 7);
         }
         else if (command == 2) {
+            system("cls");
+            printMaze(maze, 5, 7);
             while (true) {
-                system("cls");
-                printMaze(maze, 5, 7);
+                
+                
 
                 cout << "Выберите направление" << endl;
                 cout << "[1] Вверх" << endl;
@@ -73,6 +75,8 @@ int main() {
                 else if (direction == 4) newY++;
 
                 if (newX < 0 || newX >= 5 || newY < 0 || newY >= 7) {
+                    system("cls");
+                    printMaze(maze, 5, 7);
                     continue;
                 }
 
@@ -84,6 +88,22 @@ int main() {
 
                     system("cls");
                     printMaze(maze, 5, 7);
+                }
+
+                if (maze[newX][newY] == 3) {
+                    maze[playerX][playerY] = 0;
+                    maze[newX][newY] = 2;
+                    playerX = newX;
+                    playerY = newY;
+                    system("cls");
+                    printMaze(maze, 5, 7);
+                    cout << "Вы наступили на клетку 3! Выполняется взаимодействие." << endl;
+                }
+                if (maze[newX][newY] == 1) {
+                    
+                    system("cls");
+                    printMaze(maze, 5, 7);
+                    cout << "Впереди стенка" << endl;
                 }
             }
         }
