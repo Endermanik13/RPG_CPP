@@ -4,14 +4,134 @@
 #include <windows.h>
 using namespace std;
 void SetConsoleWindowSize(int width, int height) {
-    HWND hwnd = GetConsoleWindow();  // Получаем дескриптор окна консоли
+    HWND hwnd = GetConsoleWindow();  
     if (hwnd != NULL) {
-        // Устанавливаем размер окна консоли
+        
         RECT rect;
-        GetWindowRect(hwnd, &rect);  // Получаем текущие размеры окна
-        MoveWindow(hwnd, rect.left, 0, width, height, TRUE);  // Перемещаем окно в верхнюю часть экрана
+        GetWindowRect(hwnd, &rect);  
+        MoveWindow(hwnd, rect.left, 0, width, height, TRUE);  
     }
 }
+
+void checkPattern(int maze[][7], int playerX, int playerY) {
+    // Клетки по бокам, типо что находится сверху, снизу, слева, справа
+    int top = (playerX > 0) ? maze[playerX - 1][playerY] : 4;
+    int bottom = (playerX < 4) ? maze[playerX + 1][playerY] : 4;
+    int left = (playerY > 0) ? maze[playerX][playerY - 1] : 4;
+    int right = (playerY < 6) ? maze[playerX][playerY + 1] : 4;
+
+
+
+
+    if (top == 0 && bottom == 1 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 1" << endl;
+    }
+    else if (top == 1 && bottom == 1 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 2" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 0 && right == 1) {
+        cout << "ID Паттерна: 3" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 1 && right == 0) {
+        cout << "ID Паттерна: 4" << endl;
+    }
+    else if (top == 1 && bottom == 0 && left == 1 && right == 0) {
+        cout << "ID Паттерна: 5" << endl;
+    }
+    else if (top == 1 && bottom == 0 && left == 0 && right == 1) {
+        cout << "ID Паттерна: 6" << endl;
+    }
+    else if (top == 0 && bottom == 0 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 7" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 8" << endl;
+    }
+    else if (top == 0 && bottom == 0 && left == 1 && right == 0) {
+        cout << "ID Паттерна: 9" << endl;
+    }
+    else if (top == 1 && bottom == 0 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 10" << endl;
+    }
+    else if (top == 0 && bottom == 0 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 12" << endl;
+    }
+    else if (top == 3 && bottom == 1 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 13" << endl;
+    }
+    else if (top == 1 && bottom == 1 && left == 3 && right == 0) {
+        cout << "ID Паттерна: 14" << endl;
+    }
+    else if (top == 1 && bottom == 1 && left == 0 && right == 3) {
+        cout << "ID Паттерна: 15" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 3 && right == 1) {
+        cout << "ID Паттерна: 16" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 3 && right == 1) {
+        cout << "ID Паттерна: 17" << endl;
+    }
+    else if (top == 0 && bottom == 3 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 18" << endl;
+    }
+    else if (top == 0 && bottom == 3 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 19" << endl;
+    }
+    else if (top == 1 && bottom == 0 && left == 1 && right == 3) {
+        cout << "ID Паттерна: 20" << endl;
+    }
+    else if (top == 1 && bottom == 3 && left == 1 && right == 0) {
+        cout << "ID Паттерна: 21" << endl;
+    }
+    else if (top == 1 && bottom == 3 && left == 0 && right == 1) {
+        cout << "ID Паттерна: 22" << endl;
+    }
+    else if (top == 1 && bottom == 0 && left == 3 && right == 1) {
+        cout << "ID Паттерна: 23" << endl;
+    }
+    else if (top == 0 && bottom == 0 && left == 0 && right == 3) {
+        cout << "ID Паттерна: 24" << endl;
+    }
+    else if (top == 3 && bottom == 0 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 25" << endl;
+    }
+    else if (top == 0 && bottom == 0 && left == 3 && right == 0) {
+        cout << "ID Паттерна: 26" << endl;
+    }
+    else if (top == 0 && bottom == 3 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 27" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 3 && right == 0) {
+        cout << "ID Паттерна: 28" << endl;
+    }
+    else if (top == 3 && bottom == 1 && left == 0 && right == 0) {
+        cout << "ID Паттерна: 29" << endl;
+    }
+    else if (top == 0 && bottom == 1 && left == 0 && right == 3) {
+        cout << "ID Паттерна: 30" << endl;
+    }
+    else if (top == 3 && bottom == 0 && left == 1 && right == 0) {
+        cout << "ID Паттерна: 31" << endl;
+    }
+    else if (top == 0 && bottom == 0 && left == 1 && right == 3) {
+        cout << "ID Паттерна: 32" << endl;
+    }
+    else if (top == 0 && bottom == 3 && left == 1 && right == 0) {
+        cout << "ID Паттерна: 33" << endl;
+    }
+    else if (top == 3 && bottom == 0 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 34" << endl;
+    }
+    else if (top == 0 && bottom == 3 && left == 1 && right == 1) {
+        cout << "ID Паттерна: 35" << endl;
+    }
+    else {
+        cout << "Паттерн не найден!" << endl;
+    }
+}
+
+
+
 
 
 void printMaze(int maze[][7], int rows, int cols) { // Вывод карты
@@ -176,8 +296,8 @@ int main() {
         else if (command == 2) {
             system("cls");
             printMaze(maze, 5, 7);
+            checkPattern(maze, playerX, playerY);
             while (true) {
-
 
 
                 cout << "Выберите направление" << endl;
@@ -215,9 +335,9 @@ int main() {
                     maze[newX][newY] = 2;
                     playerX = newX;
                     playerY = newY;
-
                     system("cls");
                     printMaze(maze, 5, 7);
+                    checkPattern(maze, playerX, playerY);
                 }
 
                 if (maze[newX][newY] == 3) {
@@ -227,8 +347,8 @@ int main() {
                     playerY = newY;
                     system("cls");
                     printMaze(maze, 5, 7);
+                    checkPattern(maze, playerX, playerY);
                     
-                    one();
                     cout << "Вы наступили на клетку 3! Выполняется взаимодействие." << endl;
                 }
                 if (maze[newX][newY] == 1) {
@@ -236,6 +356,7 @@ int main() {
                     system("cls");
                     printMaze(maze, 5, 7);
                     cout << "Впереди стенка" << endl;
+                    checkPattern(maze, playerX, playerY);
                 }
             }
         }
