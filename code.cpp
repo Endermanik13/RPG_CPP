@@ -8,27 +8,27 @@ using namespace std;
 void SetConsoleWindowSize(int width, int height) { // Код взят с интернета для увеличения окна
     HWND hwnd = GetConsoleWindow();
     if (hwnd != NULL) {
-        
+
         RECT rect;
         GetWindowRect(hwnd, &rect);
 
-        
+
         int newWidth = width;
         int newHeight = height;
         MoveWindow(hwnd, 0, 0, newWidth, newHeight, TRUE);
 
-        
+
         CONSOLE_FONT_INFOEX cfi;
         cfi.cbSize = sizeof(CONSOLE_FONT_INFOEX);
         GetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 
-        
-        int newFontSizeX = (newWidth / 20);  
-        int newFontSizeY = (newHeight / 35); 
+
+        int newFontSizeX = (newWidth / 20);
+        int newFontSizeY = (newHeight / 35);
         cfi.dwFontSize.X = newFontSizeX;
         cfi.dwFontSize.Y = newFontSizeY;
 
-        
+
         SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
     }
 } // Увеличение окна
@@ -43,6 +43,8 @@ void printMaze(int maze[][28], int rows, int cols) { // Вывод карты
                 cout << "P ";
             else if (maze[i][j] == 3)
                 cout << "C ";
+            else if (maze[i][j] == 4)
+                cout << "M ";
         }
         cout << endl;
     }
@@ -54,7 +56,7 @@ int main() {
     SetConsoleWindowSize(1200, 1000);
     int maze[20][28] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 2, 0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1},
         {1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
         {1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
@@ -81,7 +83,7 @@ int main() {
     int sword = 1;
     int money = 0;
     while (true) {
-        cout << "Тест: 0.5" << endl;
+        cout << "Тест: 0.7" << endl;
         cout << "Выберите функцию" << endl;
         cout << "[1] Посмотреть карту" << endl;
         cout << "[2] Управление" << endl;
@@ -203,6 +205,118 @@ int main() {
                     money++;
                     cout << "Вы нашли монетку!" << endl;
 
+                }
+                if (maze[newX][newY] == 4) {
+                    maze[playerX][playerY] = 0;
+                    maze[newX][newY] = 2;
+                    playerX = newX;
+                    playerY = newY;
+                    system("cls");
+                    cout << "Вы наткнулись на Монстра" << endl;
+                    int info = 0; // Известно ли игроку о монстре?
+                    while (true) {
+                        cout << "Бой с монстром" << endl;
+                        
+                        cout << "Ваше ХП: " << hp << "/10" << endl;
+                        cout << "Ваш урон: " << sword << endl << endl;
+                        if (info == 0) {
+                            cout << "Здоровье врага: ???" << endl;
+                        }
+                        if (info == 1) {
+                            cout << "Здоровье врага: 3/3" << endl;
+                        }
+                        int option;
+                        cout << "[1] Атаковать" << endl;
+                        cout << "[2] Действие" << endl; // Там можно оценить монстра, т.е. узнать что это за монстр, и так же увидеть его хп
+                        cout << "[3] Вещи" << endl; // Инвентарь
+                        cout << "[4] Убежать" << endl; // Шанс на скип монстра 50%
+                        cout << "[0] Выйти (DEV)" << endl;
+                        cout << "Что вы будете делать: ";
+                        cin >> option;
+                        if (option == 0) {
+                            system("cls");
+                            printMaze(maze, 20, 28);
+                            break;
+                        }
+                        if (option == 2) {
+                            system("cls");
+                            while (true) {
+                                
+                                int poption;
+                                cout << "Ваше ХП: " << hp << "/10" << endl;
+                                cout << "Ваш урон: " << sword << endl << endl;
+                                if (info == 0) {
+                                    cout << "Здоровье врага: ???" << endl;
+                                }
+                                if (info == 1) {
+                                    cout << "Здоровье врага: 3/3" << endl;
+                                }
+                                cout << endl;
+                                if (info == 0) {
+                                    cout << "[1] Изучить монстра" << endl;
+                                }
+                                cout << "[2] Назад" << endl << endl;
+                                cout << "Введение команды: ";
+                                cin >> poption;
+                                if (info == 0) {
+                                    if (poption == 1) {
+                                        system("cls");
+                                        info = 1;
+                                    }
+                                    else {
+                                        system("cls");
+                                        cout << "Неверная команда, попробуйте снова." << endl;
+                                    }
+                                }
+                                else if (poption == 2) {
+                                    system("cls");
+                                    break;
+                                }
+                                else {
+                                    system("cls");
+                                    cout << "Неверная команда, попробуйте снова." << endl;
+                                }
+                            }
+                        }
+                        if (option == 1) {
+                            while (true) {
+                                system("cls");
+                                int act;
+                                cout << "Ваше ХП: " << hp << "/10" << endl;
+                                cout << "Ваш урон: " << sword << endl << endl;
+                                if (info == 0) {
+                                    cout << "Здоровье врага: ???" << endl;
+                                }
+                                if (info == 1) {
+                                    cout << "Здоровье врага: 3/3" << endl;
+                                }
+                                cout << endl;
+                                cout << "[1] Быстрый удар" << endl;
+                                cout << "[2] Сильный удар" << endl;
+                                cout << "[3] Защищаться" << endl;
+                                cout << "[0] Назад" << endl << endl;
+                                cout << "- - Правила сражения - -" << endl;
+                                cout << "Бой тут в стиле 'Камень > Ножницы > Бумага' как то так." << endl << endl;
+                                cout << "Быстрый удар > Сильный удар" << endl;
+                                cout << "Сильный удар > Защита" << endl;
+                                cout << "Защиты > Быстрый удар" << endl << endl;
+                                cout << "Введение команды: ";
+                                cin >> act;
+                                if (act == 0) {
+                                    system("cls");
+                                    break;
+                                }
+                                else {
+                                    system("cls");
+                                    cout << "Неверная команда, попробуйте снова." << endl;
+                                }
+                            }
+                        }
+                        else {
+                            system("cls");
+                            cout << "Неверная команда, попробуйте снова." << endl;
+                        }
+                    }
                 }
                 if (maze[newX][newY] == 1) {
 
