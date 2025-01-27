@@ -216,14 +216,14 @@ int main() {
                     int info = 0; // Известно ли игроку о монстре?
                     while (true) {
                         cout << "Бой с монстром" << endl;
-                        
+                        int EnemyHp = 3;
                         cout << "Ваше ХП: " << hp << "/10" << endl;
                         cout << "Ваш урон: " << sword << endl << endl;
                         if (info == 0) {
                             cout << "Здоровье врага: ???" << endl;
                         }
                         if (info == 1) {
-                            cout << "Здоровье врага: 3/3" << endl;
+                            cout << "Здоровье врага: " << EnemyHp << "/3" << endl;
                         }
                         int option;
                         cout << "[1] Атаковать" << endl;
@@ -241,7 +241,7 @@ int main() {
                         if (option == 2) {
                             system("cls");
                             while (true) {
-                                
+
                                 int poption;
                                 cout << "Ваше ХП: " << hp << "/10" << endl;
                                 cout << "Ваш урон: " << sword << endl << endl;
@@ -249,7 +249,7 @@ int main() {
                                     cout << "Здоровье врага: ???" << endl;
                                 }
                                 if (info == 1) {
-                                    cout << "Здоровье врага: 3/3" << endl;
+                                    cout << "Здоровье врага: "<< EnemyHp <<"/3" << endl;
                                 }
                                 cout << endl;
                                 if (info == 0) {
@@ -282,29 +282,62 @@ int main() {
                             while (true) {
                                 system("cls");
                                 int act;
+                                int enemyAct = rand() % 3 + 1;
                                 cout << "Ваше ХП: " << hp << "/10" << endl;
                                 cout << "Ваш урон: " << sword << endl << endl;
                                 if (info == 0) {
                                     cout << "Здоровье врага: ???" << endl;
                                 }
                                 if (info == 1) {
-                                    cout << "Здоровье врага: 3/3" << endl;
+                                    cout << "Здоровье врага: " << EnemyHp << "/3" << endl;
                                 }
                                 cout << endl;
                                 cout << "[1] Быстрый удар" << endl;
                                 cout << "[2] Сильный удар" << endl;
                                 cout << "[3] Защищаться" << endl;
                                 cout << "[0] Назад" << endl << endl;
-                                cout << "- - Правила сражения - -" << endl;
-                                cout << "Бой тут в стиле 'Камень > Ножницы > Бумага' как то так." << endl << endl;
-                                cout << "Быстрый удар > Сильный удар" << endl;
-                                cout << "Сильный удар > Защита" << endl;
-                                cout << "Защиты > Быстрый удар" << endl << endl;
+                                cout << "Враг выбрал: ";
+                                if (enemyAct == 1) {
+                                    cout << "Быстрый удар" << endl;
+                                }
+                                if (enemyAct == 2) {
+                                    cout << "Сильный удар" << endl;
+                                }
+                                if (enemyAct == 3) { 
+                                    cout << "Защита" << endl; 
+                                }
+
                                 cout << "Введение команды: ";
                                 cin >> act;
                                 if (act == 0) {
                                     system("cls");
                                     break;
+                                }
+                                if (act == 1 && enemyAct == 1) {
+                                    system("cls");
+                                    cout << "Вы оба нанесли быстрые удары одновременно!" << endl;
+                                    cout << "Удары отразили друг друга" << endl;
+                                }
+                                if (act == 1 && enemyAct == 3) {
+                                    system("cls");
+                                    cout << "Вы ударили врага быстрой атакой, но он защитился!" << endl;
+                                    cout << "Вы не нанесли врагу урон" << endl;
+                                }
+                                if (act == 3 && enemyAct == 3) {
+                                    system("cls");
+                                    cout << "Вы оба встали в защиту..." << endl;
+                                    cout << "Вы не нанесли врагу урон" << endl;
+                                }
+                                if (act == 2 && enemyAct == 2) {
+                                    system("cls");
+                                    cout << "Вы оба ударили с огромной силой!" << endl;
+                                    cout << "Удары разлетелись в стороны, и оба остались на месте" << endl;
+                                }
+                                if (act == 1 && enemyAct == 2) {
+                                    system("cls");
+                                    EnemyHp--;
+                                    cout << "Ваш быстрый удар был быстрее, чем его сильный замах!" << endl;
+                                    cout << "Враг получил урон." << endl;
                                 }
                                 else {
                                     system("cls");
