@@ -100,6 +100,12 @@ int main() {
             cout << "Выход из программы. До свидания!" << endl;
             break;
         }
+        if (hp == 0) {
+            system("cls");
+            cout << "Вы умерли" << endl;
+            cout << "Игра окончена" << endl;
+            break;
+        }
         if (command == 1) {
             system("cls");
             printMaze(maze, 20, 28);
@@ -120,7 +126,12 @@ int main() {
                 cout << "[4] Вправо" << endl;
                 cout << "[5] Инвентарь" << endl;
                 cout << "[0] Вернуться в меню" << endl;
-
+                if (hp == 0) {
+                    system("cls");
+                    cout << "Вы умерли" << endl;
+                    cout << "Игра окончена" << endl;
+                    break;
+                }
                 int direction;
                 cout << "Введите направление: ";
                 cin >> direction;
@@ -132,6 +143,12 @@ int main() {
                 if (direction == 5) {
                     system("cls");
                     while (true) {
+                        if (hp == 0) {
+                            system("cls");
+                            cout << "Вы умерли" << endl;
+                            cout << "Игра окончена" << endl;
+                            break;
+                        }
                         int option;
                         cout << "Лечебные зелья: " << lechilki << endl;
                         cout << "Ваше ХП: " << hp << "/10" << endl;
@@ -249,7 +266,7 @@ int main() {
                                     cout << "Здоровье врага: ???" << endl;
                                 }
                                 if (info == 1) {
-                                    cout << "Здоровье врага: "<< EnemyHp <<"/3" << endl;
+                                    cout << "Здоровье врага: " << EnemyHp << "/3" << endl;
                                 }
                                 cout << endl;
                                 if (info == 0) {
@@ -277,10 +294,17 @@ int main() {
                                     cout << "Неверная команда, попробуйте снова." << endl;
                                 }
                             }
+                            if (hp == 0) {
+                                system("cls");
+                                cout << "Вы умерли" << endl;
+                                cout << "Игра окончена" << endl;
+                                break;
+                            }
                         }
                         if (option == 1) {
+                            system("cls");
                             while (true) {
-                                system("cls");
+                                
                                 int act;
                                 int enemyAct = rand() % 3 + 1;
                                 cout << "Ваше ХП: " << hp << "/10" << endl;
@@ -303,9 +327,9 @@ int main() {
                                 if (enemyAct == 2) {
                                     cout << "Сильный удар" << endl;
                                 }
-                                if (enemyAct == 3) { 
-                                    cout << "Защита" << endl; 
-                                }
+                                if (enemyAct == 3) {
+                                    cout << "Защита" << endl;
+                                };
 
                                 cout << "Введение команды: ";
                                 cin >> act;
@@ -316,38 +340,84 @@ int main() {
                                 if (act == 1 && enemyAct == 1) {
                                     system("cls");
                                     cout << "Вы оба нанесли быстрые удары одновременно!" << endl;
-                                    cout << "Удары отразили друг друга" << endl;
+                                    cout << "Удары отразили друг друга." << endl;
                                 }
-                                if (act == 1 && enemyAct == 3) {
+                                else if (act == 1 && enemyAct == 3) {
                                     system("cls");
                                     cout << "Вы ударили врага быстрой атакой, но он защитился!" << endl;
-                                    cout << "Вы не нанесли врагу урон" << endl;
+                                    cout << "Вы не нанесли врагу урон." << endl;
                                 }
-                                if (act == 3 && enemyAct == 3) {
+                                else if (act == 3 && enemyAct == 3) {
                                     system("cls");
                                     cout << "Вы оба встали в защиту..." << endl;
-                                    cout << "Вы не нанесли врагу урон" << endl;
+                                    cout << "Вы не нанесли врагу урон." << endl;
                                 }
-                                if (act == 2 && enemyAct == 2) {
+                                else if (act == 2 && enemyAct == 2) {
                                     system("cls");
                                     cout << "Вы оба ударили с огромной силой!" << endl;
-                                    cout << "Удары разлетелись в стороны, и оба остались на месте" << endl;
+                                    cout << "Удары разлетелись в стороны, и оба остались на месте." << endl;
                                 }
-                                if (act == 1 && enemyAct == 2) {
+                                else if (act == 1 && enemyAct == 2) {
                                     system("cls");
                                     EnemyHp--;
                                     cout << "Ваш быстрый удар был быстрее, чем его сильный замах!" << endl;
                                     cout << "Враг получил урон." << endl;
                                 }
+                                else if (act == 2 && enemyAct == 1) {
+                                    system("cls");
+                                    hp--;
+                                    cout << "Вы попытались нанести сильный удар, но враг был быстрее." << endl;
+                                    cout << "Вы пропустили удар." << endl;
+                                }
+                                else if (act == 2 && enemyAct == 3) {
+                                    system("cls");
+                                    EnemyHp--;
+                                    cout << "Вы размахнулись и пробили его защиту!" << endl;
+                                    cout << "Враг получил урон." << endl;
+                                }
+                                else if (act == 3 && enemyAct == 2) {
+                                    system("cls");
+                                    hp--;
+                                    cout << "Вы подняли защиту, но мощный удар врага пробил её!" << endl;
+                                    cout << "Вы получили урон." << endl;
+                                }
+                                else if (act == 3 && enemyAct == 1) {
+                                    system("cls");
+                                    cout << "Вы встали в защиту, блокируя быстрый удар врага." << endl;
+                                    cout << "Вы не получили урон." << endl;
+                                }
                                 else {
                                     system("cls");
                                     cout << "Неверная команда, попробуйте снова." << endl;
+                                };
+                                if (EnemyHp == 0) {
+                                    system("cls");
+                                    cout << "Вы убили монстра!" << endl;
+                                    money++;
+                                    money++;
+                                    money++;
+                                    money++;
+                                    money++;
+                                    cout << "Вы получили 5 монет" << endl;
                                 }
+                                if (hp == 0) {
+                                    system("cls");
+                                    cout << "Вы умерли" << endl;
+                                    cout << "Игра окончена" << endl;
+                                    break;
+                                }
+
                             }
                         }
                         else {
                             system("cls");
                             cout << "Неверная команда, попробуйте снова." << endl;
+                        }
+                        if (hp == 0) {
+                            system("cls");
+                            cout << "Вы умерли" << endl;
+                            cout << "Игра окончена" << endl;
+                            break;
                         }
                     }
                 }
@@ -357,6 +427,12 @@ int main() {
                     printMaze(maze, 20, 28);
                     cout << "Вы не можете пройти, так как перед вами стена" << endl;
 
+                }
+                if (hp == 0) {
+                    system("cls");
+                    cout << "Вы умерли" << endl;
+                    cout << "Игра окончена" << endl;
+                    break;
                 }
             }
         }
