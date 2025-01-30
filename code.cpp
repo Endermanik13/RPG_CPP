@@ -88,8 +88,21 @@ int main() {
         if (kills == 7) {
             system("cls");
             cout << "Поздравляем! Вы прошли игру!" << endl;
+            cout << "Ваш финальный счёт: " << money << " монет" << endl;
+
+            ofstream scoreFile("score.txt");
+            if (scoreFile.is_open()) {
+                scoreFile << "Финальный счёт: " << money << " монет" << endl;
+                scoreFile.close();
+            }
+            else {
+                cout << "Ошибка при сохранении счёта!" << endl;
+            }
+
             break;
         }
+
+
         cout << "Выберите функцию" << endl;
         cout << "[1] Посмотреть карту" << endl;
         cout << "[2] Управление" << endl;
