@@ -2,6 +2,7 @@
 #include <locale.h>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <windows.h>
 using namespace std;
 
@@ -90,17 +91,23 @@ int main() {
             cout << "Поздравляем! Вы прошли игру!" << endl;
             cout << "Ваш финальный счёт: " << money << " монет" << endl;
 
-            ofstream scoreFile("score.txt");
-            if (scoreFile.is_open()) {
-                scoreFile << "Финальный счёт: " << money << " монет" << endl;
-                scoreFile.close();
+            
+            ofstream file("score.txt");
+
+            
+            if (file) {
+                file << money; 
+                file.close();
+                cout << "Счёт успешно сохранён!" << endl;
             }
             else {
-                cout << "Ошибка при сохранении счёта!" << endl;
+                cout << "Ошибка! Не удалось сохранить счёт!" << endl;
             }
 
             break;
         }
+
+
 
 
         cout << "Выберите функцию" << endl;
@@ -109,11 +116,13 @@ int main() {
         cout << "[3] Магазин" << endl;
         cout << "[4] Инвентарь" << endl;
         cout << "[5] Об игре" << endl;
+        cout << "[6] Предыдущий счёт" << endl;
         cout << "[0] Выход" << endl;
 
         int command;
         cout << "Введение команды: ";
         cin >> command;
+
 
         if (command == 0) {
             system("cls");
@@ -130,6 +139,29 @@ int main() {
             system("cls");
             printMaze(maze, 20, 28);
         }
+        else if (command == 6) {
+            system("cls");
+
+            
+            ifstream file("score.txt");
+
+            
+            if (file) {
+                int previousScore;
+                file >> previousScore;
+                file.close();
+                cout << "Ваш предыдущий счёт: " << previousScore << " монет" << endl;
+            }
+            else {
+                cout << "Файл со счётом не найден!" << endl;
+            }
+
+            cout << "[0] Назад" << endl;
+            int option;
+            cin >> option;
+            system("cls");
+        }
+
         else if (command == 2) {
             system("cls");
             printMaze(maze, 20, 28);
